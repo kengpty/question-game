@@ -6,7 +6,6 @@ export const getRandomQuestion = (questionId: number[]): Question => {
   const availableQuestions = questions.filter(
     (question) => !questionId.includes(question.id)
   );
-
   const randomIndex = Math.floor(Math.random() * availableQuestions.length);
   availableQuestions[randomIndex].options = shuffleArray(
     availableQuestions[randomIndex].options

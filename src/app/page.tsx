@@ -26,7 +26,7 @@ const Home: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (questionNumber < TOTAL_QUESTIONS) {
+    if (questionNumber <= TOTAL_QUESTIONS) {
       setCurrentQuestion(getRandomQuestion(selectedQuestions));
     }
   }, [selectedQuestions]);

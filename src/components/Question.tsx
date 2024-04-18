@@ -8,47 +8,6 @@ interface QuestionProps {
   onSelectAnswer: (selectedOption: number) => void;
 }
 
-// const Question: React.FC<QuestionProps> = ({ question, onSelectAnswer }) => {
-
-//   const handleSubmitAnswer = () => {
-//     if (selectedOption !== null) {
-//       onSelectAnswer(selectedOption);
-//       setSelectedOption(null);
-//     }
-//   };
-
-//   // Set initial state on the client side
-//   useEffect(() => {
-//     setSelectedOption(null);
-//   }, [question]);
-
-//   return (
-//     <div className="bg-white p-6 rounded-lg shadow-md">
-//       <h2 className="text-2xl font-bold mb-4">{question.question}</h2>
-//       <ul>
-//         {question.options.map((option, index) => (
-//           <li
-//             key={index}
-//             className={`bg-gray-100 p-4 rounded-lg mb-2 cursor-pointer ${
-//               selectedOption === index ? "bg-blue-500 text-white" : ""
-//             }`}
-//             onClick={() => handleSelectOption(index)}
-//           >
-//             {option}
-//           </li>
-//         ))}
-//       </ul>
-//       <button
-//         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-//         onClick={handleSubmitAnswer}
-//       >
-//         Submit Answer
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default Question;
 const Question: React.FC<QuestionProps> = ({ question, onSelectAnswer }) => {
   useEffect(() => {
     setSelectedOption(null);
@@ -72,13 +31,6 @@ const Question: React.FC<QuestionProps> = ({ question, onSelectAnswer }) => {
         {question?.question}
       </h2>
 
-      {/* <ul>
-        {question.options.map((option, index) => (
-          <li key={index} onClick={() => onSelectAnswer(index)}>
-            <span className="text-black"> {option}</span>
-          </li>
-        ))}
-      </ul> */}
       <ul>
         {question?.options &&
           question.options.map((option, index) => (
