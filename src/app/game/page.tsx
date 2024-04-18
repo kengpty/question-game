@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { getRandomQuestion } from "@/utils/randomQuestion";
+import { getRandomQuestion, getFirstQuestion } from "@/utils/randomQuestion";
 import { Question } from "@/utils/question";
 import Leaderboard from "@/components/Leaderboard";
 
@@ -17,10 +17,19 @@ const Home: React.FC = () => {
     null
   );
   const [userScore, setUserScore] = React.useState<number>(0);
+  const [selectedQuestions, setSelectedQuestions] = React.useState<number[]>(
+    []
+  );
 
   React.useEffect(() => {
-    setCurrentQuestion(getRandomQuestion());
+    setCurrentQuestion(getFirstQuestion());
   }, []);
+
+  React.useEffect(() => {
+    if (questionNumber < TOTAL_QUESTIONS) {
+      setCurrentQuestion(getRandomQuestion(selectedQuestions));
+    }
+  }, [selectedQuestions]);
 
   const handleSelectOption = (index: number) => {
     setSelectedOption(index);
@@ -31,9 +40,9 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (currentQuestion: Question) => {
     if (questionNumber < TOTAL_QUESTIONS) {
-      setCurrentQuestion(getRandomQuestion());
+      setSelectedQuestions([...selectedQuestions, currentQuestion?.id]);
       setQuestionNumber((prevNumber) => prevNumber + 1);
       setSelectedOption(null);
     } else {
@@ -42,7 +51,8 @@ const Home: React.FC = () => {
   };
 
   const handleRestartGame = () => {
-    setCurrentQuestion(getRandomQuestion());
+    setSelectedQuestions([]);
+    setCurrentQuestion(getFirstQuestion());
     setQuestionNumber(1);
     setShowLeaderboard(false);
     setSelectedOption(null);
@@ -73,7 +83,9 @@ const Home: React.FC = () => {
           </ul>
           {questionNumber <= TOTAL_QUESTIONS && (
             <button
-              onClick={handleNextQuestion}
+              onClick={() =>
+                currentQuestion ? handleNextQuestion(currentQuestion) : null
+              }
               className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded"
               disabled={selectedOption !== null ? false : true}
             >

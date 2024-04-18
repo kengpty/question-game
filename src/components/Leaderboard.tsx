@@ -15,7 +15,10 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
   >([]);
 
   React.useEffect(() => {
-    const dummyPlayers: { name: string; score: number }[] = [];
+    const dummyPlayers: { name: string; score: number }[] = [
+      { name: "Keng", score: Math.floor(Math.random() * 20) + 1 },
+      { name: "Sleepy", score: Math.floor(Math.random() * 20) + 1 },
+    ];
 
     const updatedPlayers = [
       ...dummyPlayers,

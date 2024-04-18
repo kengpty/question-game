@@ -2,7 +2,19 @@
 import questions from "./question";
 import { Question } from "./question";
 
-export const getRandomQuestion = (): Question => {
+export const getRandomQuestion = (questionId: number[]): Question => {
+  const availableQuestions = questions.filter(
+    (question) => !questionId.includes(question.id)
+  );
+
+  const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+  availableQuestions[randomIndex].options = shuffleArray(
+    availableQuestions[randomIndex].options
+  );
+  return availableQuestions[randomIndex];
+};
+
+export const getFirstQuestion = (): Question => {
   const randomIndex = Math.floor(Math.random() * questions.length);
   const question = { ...questions[randomIndex] };
 
