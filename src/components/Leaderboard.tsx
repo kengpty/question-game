@@ -35,7 +35,10 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       <h2 className="text-xl font-bold mb-4 text-center">Leaderboard</h2>
       <ol className="list-decimal pl-4 w-1/2 mx-auto">
         {players.map((player, index) => (
-          <li key={index} className="mb-2">
+          <li
+            key={index}
+            className={player?.name === "Me" ? "text-rose-600	 mb-2" : "mb-2"}
+          >
             {player.name} - {player.score} Point
           </li>
         ))}
